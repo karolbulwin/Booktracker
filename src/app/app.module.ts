@@ -15,6 +15,9 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardModule } from './dashboard/dashboard.module';
 
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
+
 @NgModule({
   declarations: [AppComponent, NavComponent],
   imports: [
@@ -23,6 +26,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
     CoreModule,
     HttpClientModule,
     DashboardModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false
+    }),
     // material
     BrowserAnimationsModule,
     LayoutModule,
