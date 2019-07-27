@@ -26,8 +26,13 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>
-            <ul>
+            <ul *ngIf="card.title === 'Books'">
               <li *ngFor="let book of card.data">{{ book.title }}</li>
+            </ul>
+            <ul *ngIf="card.title === 'Readers'">
+              <li *ngFor="let reader of card.data">
+                {{ reader.name }}
+              </li>
             </ul>
           </div>
         </mat-card-content>
