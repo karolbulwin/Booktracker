@@ -1,0 +1,51 @@
+<h1 *ngIf="selectedReader">Edit reader</h1>
+
+<div class="example-container" *ngIf="selectedReader">
+  <form [formGroup]="readerForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name" required />
+      <mat-error *ngIf="readerForm.controls['name'].hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Weekly reading goal</mat-label>
+      <input
+        matInput
+        placeholder="weeklyReadingGoal"
+        type="number"
+        formControlName="weeklyReadingGoal"
+        required
+      />
+      <mat-error
+        *ngIf="readerForm.controls['weeklyReadingGoal'].hasError('required')"
+      >
+        Weekly reading goal is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Total minutes read</mat-label>
+      <input
+        matInput
+        placeholder="totalMinutesRead"
+        type="number"
+        formControlName="totalMinutesRead"
+        required
+      />
+      <mat-error
+        *ngIf="readerForm.controls['totalMinutesRead'].hasError('required')"
+      >
+        Total minutes read is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">
+      Save
+    </button>
+    <button mat-raised-button color="accent" type="button" (click)="goBack()">
+      Cancel
+    </button>
+  </form>
+</div>
