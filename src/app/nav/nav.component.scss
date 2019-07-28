@@ -1,5 +1,8 @@
 .sidenav-container {
   height: 100%;
+  .spacer {
+    flex: 1 1 auto;
+  }
 }
 
 .sidenav {
@@ -14,4 +17,35 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.mat-nav-list {
+  a {
+    color: #757575;
+  }
+  .active {
+    color: #1a1a1a;
+  }
+}
+
+.mat-toolbar {
+  box-shadow: 1px 0 8px 1px rgba(0, 0, 0, 0.303);
+  user-select: none;
+
+  a {
+    padding: 0 0.5em;
+    text-decoration: none;
+    color: whitesmoke;
+    transition-duration: 300ms;
+    &:hover {
+      color: black;
+    }
+  }
+  .active {
+    color: #1a1a1a;
+  }
 }
