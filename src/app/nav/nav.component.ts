@@ -9,6 +9,13 @@ import { map, share } from 'rxjs/operators';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
+  title = 'Book tracker';
+  navItems = [
+    { text: 'Home', path: '/dashboard' },
+    { text: 'Add book', path: '/addBook' },
+    { text: 'Add reader', path: '/addReader' }
+  ];
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
