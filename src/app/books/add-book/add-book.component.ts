@@ -5,6 +5,7 @@ import { Book } from 'src/app/models/book';
 import { Location } from '@angular/common';
 import { DataService } from 'src/app/core/data.service';
 import { Router } from '@angular/router';
+import { BookTrackerError } from 'src/app/models/bookTrackerError';
 
 @Component({
   selector: 'app-add-book',
@@ -17,7 +18,7 @@ export class AddBookComponent implements OnInit {
     author: [null, Validators.required],
     publicationYear: [null, Validators.required]
   });
-
+  error: string;
   //   new FormControl('', [Validators.required, Validators.email]);
   // newBook: Book = <Book>this.bookForm;
 
@@ -34,13 +35,20 @@ export class AddBookComponent implements OnInit {
       const newBook: Book = this.bookForm.value as Book;
       // newBook.id = 0;
 
-      console.log(newBook);
-      console.log(this.bookForm.value);
+      // console.log(newBook);
+      // console.log(this.bookForm.value);
 
       this.dataService.addBook(newBook).subscribe(
         (book: Book) => console.log(book),
-        (err: any) => console.log('add-book: ' + err), // in dataService
-        () => this.goToHome()
+        (error: BookTrackerError) => {
+          // this.error = error.friendlyMessage as string;
+          this.error = 'An error occurred. Please try again later.';
+        },
+        () => {
+          if (!this.error) {
+            this.goToHome();
+          }
+        }
       );
     }
   }
