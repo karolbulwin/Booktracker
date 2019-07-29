@@ -14,7 +14,10 @@ import { BookTrackerError } from 'src/app/models/bookTrackerError';
 export class EditReaderComponent implements OnInit {
   readerForm;
   selectedReader: Reader;
-  error: string;
+  error = {
+    send: '',
+    get: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +53,7 @@ export class EditReaderComponent implements OnInit {
         });
       },
       (error: BookTrackerError) => {
-        this.error = error.friendlyMessage as string;
+        this.error.get = error.friendlyMessage as string;
       }
     );
   }
@@ -62,14 +65,19 @@ export class EditReaderComponent implements OnInit {
       const updatedReader: Reader = this.readerForm.value as Reader;
       const newReader = { ...this.selectedReader, ...updatedReader };
 
-      this.dataService
-        .updateReader(newReader)
-        .subscribe(
-          (data: void) =>
-            console.log(`${this.selectedReader.name} updated successfully`),
-          (err: any) => console.log(err),
-          () => this.goBack()
-        );
+      this.dataService.updateReader(newReader).subscribe(
+        (data: void) =>
+          console.log(`${this.selectedReader.name} updated successfully`),
+        (error: BookTrackerError) => {
+          // this.error = error.friendlyMessage as string;
+          this.error.send = 'An error occurred. Please try again later.';
+        },
+        () => {
+          if (!this.error.send) {
+            this.goBack();
+          }
+        }
+      );
     }
   }
 
