@@ -1,5 +1,8 @@
 <div class="root">
   <h1>Edit book</h1>
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
 
   <div class="example-container" *ngIf="selectedBook">
     <form [formGroup]="bookForm" novalidate (ngSubmit)="onSubmit()">
