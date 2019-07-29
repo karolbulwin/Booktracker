@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -12,35 +8,29 @@ import { Book } from '../models/book';
 import { Reader } from '../models/reader';
 import { BookTrackerError } from '../models/bookTrackerError';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  // private booksUrl =
-  //   'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books';
-  // private readersUrl =
-  //   'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers';
+  private booksUrl =
+    'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books';
+  private readersUrl =
+    'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers';
 
-  private booksUrl = 'api/books';
-  private readersUrl = 'api/readers';
+  // private booksUrl = 'api/books';
+  // private readersUrl = 'api/readers';
 
   constructor(private http: HttpClient) {}
 
   getBooks(): Observable<Book[] | BookTrackerError> {
-    return this.http.get<Book[]>(this.booksUrl, httpOptions).pipe(
+    return this.http.get<Book[]>(this.booksUrl).pipe(
       retry(3),
       catchError(this.handleHttpError)
     );
   }
 
   getBook(id: number): Observable<Book | BookTrackerError> {
-    return this.http.get<Book>(`${this.booksUrl}/${id}`, httpOptions).pipe(
+    return this.http.get<Book>(`${this.booksUrl}/${id}`).pipe(
       retry(3),
       catchError(this.handleHttpError)
     );
@@ -48,13 +38,13 @@ export class DataService {
 
   addBook(newBook: Book): Observable<Book | BookTrackerError> {
     return this.http
-      .post<Book>(this.booksUrl, newBook, httpOptions)
+      .post<Book>(this.booksUrl, newBook)
       .pipe(catchError(this.handleHttpError));
   }
 
   updateBook(updatedBook: Book): Observable<void | BookTrackerError> {
     return this.http
-      .put<void>(`${this.booksUrl}/${updatedBook.id}`, updatedBook, httpOptions)
+      .put<void>(`${this.booksUrl}/${updatedBook.id}`, updatedBook)
       .pipe(catchError(this.handleHttpError));
   }
 
@@ -70,7 +60,7 @@ export class DataService {
   }
 
   getReader(id: number): Observable<Reader | BookTrackerError> {
-    return this.http.get<Reader>(`${this.readersUrl}/${id}`, httpOptions).pipe(
+    return this.http.get<Reader>(`${this.readersUrl}/${id}`).pipe(
       retry(3),
       catchError(this.handleHttpError)
     );
@@ -78,17 +68,13 @@ export class DataService {
 
   addReader(newReader: Reader): Observable<Reader | BookTrackerError> {
     return this.http
-      .post<Reader>(this.readersUrl, newReader, httpOptions)
+      .post<Reader>(this.readersUrl, newReader)
       .pipe(catchError(this.handleHttpError));
   }
 
   updateReader(updatedReader: Reader): Observable<void | BookTrackerError> {
     return this.http
-      .put<void>(
-        `${this.readersUrl}/${updatedReader.id}`,
-        updatedReader,
-        httpOptions
-      )
+      .put<void>(`${this.readersUrl}/${updatedReader.id}`, updatedReader)
       .pipe(catchError(this.handleHttpError));
   }
 
