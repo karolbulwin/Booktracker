@@ -5,8 +5,8 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, tap, retry } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 import { Book } from '../models/book';
 import { Reader } from '../models/reader';
@@ -96,19 +96,6 @@ export class DataService {
     return this.http.delete<void>(`${this.readersUrl}/${readerID}`);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
   private handleHttpError(
     error: HttpErrorResponse
   ): Observable<BookTrackerError> {
@@ -128,9 +115,5 @@ export class DataService {
     }
 
     return throwError(dataError);
-  }
-
-  private log(message: string) {
-    console.log(`DataService: ${message}`);
   }
 }
