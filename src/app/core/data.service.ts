@@ -118,6 +118,7 @@ export class DataService {
       console.error('An error occurred:', error.error.message);
     } else {
       console.error(
+        // TODO: send the error to remote logging infrastructure
         `Backend returned code ${error.status}, ` +
           `body was: ${JSON.stringify(error)}`
       );
