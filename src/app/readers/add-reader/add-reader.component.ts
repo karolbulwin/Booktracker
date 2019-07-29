@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/core/data.service';
-import { Reader } from 'src/app/models/reader';
 import { Location } from '@angular/common';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { DataService } from 'src/app/core/data.service';
+import { Reader } from 'src/app/models/reader';
 import { BookTrackerError } from 'src/app/models/bookTrackerError';
 
 @Component({
