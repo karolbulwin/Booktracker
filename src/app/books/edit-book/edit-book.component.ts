@@ -54,6 +54,7 @@ export class EditBookComponent implements OnInit {
       const newBook = { ...this.selectedBook, ...updatedBook };
 
       this.dataService.updateBook(newBook).subscribe(
+        (data: void) => console.log('Updated successfully.'),
         (error: BookTrackerError) => {
           // this.error = error.friendlyMessage as string;
           this.error.send = 'An error occurred. Please try again later.';

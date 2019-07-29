@@ -57,6 +57,7 @@ export class EditReaderComponent implements OnInit {
       const newReader = { ...this.selectedReader, ...updatedReader };
 
       this.dataService.updateReader(newReader).subscribe(
+        (data: void) => console.log('Updated successfully.'),
         (error: BookTrackerError) => {
           // this.error = error.friendlyMessage as string;
           this.error.send = 'An error occurred. Please try again later.';

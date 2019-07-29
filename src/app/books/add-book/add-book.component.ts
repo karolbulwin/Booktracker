@@ -32,7 +32,7 @@ export class AddBookComponent implements OnInit {
       const newBook: Book = this.bookForm.value as Book;
 
       this.dataService.addBook(newBook).subscribe(
-        (book: Book) => console.log(book),
+        (book: Book) => console.log('Book added!'),
         (error: BookTrackerError) => {
           // this.error = error.friendlyMessage as string;
           this.error = 'An error occurred. Please try again later.';
