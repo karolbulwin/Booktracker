@@ -5,6 +5,7 @@ import { Reader } from 'src/app/models/reader';
 import { Location } from '@angular/common';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BookTrackerError } from 'src/app/models/bookTrackerError';
 
 @Component({
   selector: 'app-add-reader',
@@ -17,6 +18,7 @@ export class AddReaderComponent implements OnInit {
     weeklyReadingGoal: [null, Validators.required],
     totalMinutesRead: [null, Validators.required]
   });
+  error: string;
 
   constructor(
     // private route: ActivatedRoute,
@@ -39,13 +41,20 @@ export class AddReaderComponent implements OnInit {
       const newReader: Reader = this.readerForm.value as Reader;
       // newReader.id = 0;
 
-      console.log(newReader);
-      console.log(this.readerForm.value);
+      // console.log(newReader);
+      // console.log(this.readerForm.value);
 
       this.dataService.addReader(newReader).subscribe(
         (reader: Reader) => console.log(reader),
-        (err: any) => console.log('add-reader: ' + err), // in dataService
-        () => this.goToHome()
+        (error: BookTrackerError) => {
+          // this.error = error.friendlyMessage as string;
+          this.error = 'An error occurred. Please try again later.';
+        },
+        () => {
+          if (!this.error) {
+            this.goToHome();
+          }
+        }
       );
     }
   }

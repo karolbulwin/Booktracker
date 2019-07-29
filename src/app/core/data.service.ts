@@ -27,8 +27,8 @@ export class DataService {
   // private readersUrl =
   //   'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers';
 
-  private booksUrl = 'api/books';
-  private readersUrl = 'api/readers';
+  private booksUrl = 'api/bookss';
+  private readersUrl = 'api/readerss';
 
   constructor(private http: HttpClient) {}
 
@@ -46,11 +46,10 @@ export class DataService {
     );
   }
 
-  addBook(newBook: Book): Observable<Book> {
-    return this.http.post<Book>(this.booksUrl, newBook, httpOptions).pipe(
-      tap(_ => this.log(`book added=${newBook.title}`)),
-      catchError(this.handleError<Book>(`addBook -failed - ${newBook.title}`))
-    );
+  addBook(newBook: Book): Observable<Book | BookTrackerError> {
+    return this.http
+      .post<Book>(this.booksUrl, newBook, httpOptions)
+      .pipe(catchError(this.handleHttpError));
   }
 
   updateBook(updatedBook: Book): Observable<void> {
@@ -82,14 +81,10 @@ export class DataService {
     );
   }
 
-  addReader(newReader: Reader): Observable<Reader> {
+  addReader(newReader: Reader): Observable<Reader | BookTrackerError> {
     return this.http
       .post<Reader>(this.readersUrl, newReader, httpOptions)
-      .pipe(
-        catchError(
-          this.handleError<Reader>(`addReader -failed - ${newReader.name}`)
-        )
-      );
+      .pipe(catchError(this.handleHttpError));
   }
 
   updateReader(updatedReader: Reader): Observable<void> {
