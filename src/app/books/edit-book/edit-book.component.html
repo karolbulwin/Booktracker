@@ -1,7 +1,7 @@
 <div class="root">
   <h1>Edit book</h1>
-  <div *ngIf="error" class="error">
-    <p>{{ error }}</p>
+  <div *ngIf="error.get" class="error">
+    <p>{{ error.get }}</p>
   </div>
 
   <div class="example-container" *ngIf="selectedBook">
@@ -56,5 +56,8 @@
         </button>
       </div>
     </form>
+  </div>
+  <div *ngIf="error.send" class="error">
+    <p>{{ error.send }}</p>
   </div>
 </div>

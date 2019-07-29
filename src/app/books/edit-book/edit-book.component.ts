@@ -21,7 +21,10 @@ export class EditBookComponent implements OnInit {
   //   new FormControl('', [Validators.required, Validators.email]);
   bookForm;
   selectedBook: Book;
-  error: string;
+  error = {
+    send: '',
+    get: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +57,7 @@ export class EditBookComponent implements OnInit {
         });
       },
       (error: BookTrackerError) => {
-        this.error = error.friendlyMessage as string;
+        this.error.get = error.friendlyMessage as string;
       }
     );
   }
@@ -66,14 +69,19 @@ export class EditBookComponent implements OnInit {
       const updatedBook: Book = this.bookForm.value as Book;
       const newBook = { ...this.selectedBook, ...updatedBook };
 
-      this.dataService
-        .updateBook(newBook)
-        .subscribe(
-          (data: void) =>
-            console.log(`${this.selectedBook.title} updated successfully`),
-          (err: any) => console.log(err),
-          () => this.goBack()
-        );
+      this.dataService.updateBook(newBook).subscribe(
+        (data: void) =>
+          console.log(`${this.selectedBook.title} updated successfully`),
+        (error: BookTrackerError) => {
+          // this.error = error.friendlyMessage as string;
+          this.error.send = 'An error occurred. Please try again later.';
+        },
+        () => {
+          if (!this.error.send) {
+            this.goBack();
+          }
+        }
+      );
     }
   }
 
