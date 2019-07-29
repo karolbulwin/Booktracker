@@ -1,43 +1,57 @@
-<h1>Add book</h1>
+<div class="root">
+  <h1>Add book</h1>
 
-<div class="example-container">
-  <form [formGroup]="bookForm" novalidate (ngSubmit)="onSubmit()">
-    <mat-form-field class="full-width">
-      <mat-label>Title</mat-label>
-      <input matInput placeholder="Title" formControlName="title" required />
-      <mat-error *ngIf="bookForm.controls['title'].hasError('required')">
-        Title is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+  <div class="example-container">
+    <form [formGroup]="bookForm" novalidate (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Title" formControlName="title" required />
+        <mat-error *ngIf="bookForm.controls['title'].hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <mat-label>Author</mat-label>
-      <input matInput placeholder="Author" formControlName="author" required />
-      <mat-error *ngIf="bookForm.controls['author'].hasError('required')">
-        Author name is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Author</mat-label>
+        <input
+          matInput
+          placeholder="Author"
+          formControlName="author"
+          required
+        />
+        <mat-error *ngIf="bookForm.controls['author'].hasError('required')">
+          Author name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <mat-label>Publication year</mat-label>
-      <input
-        matInput
-        placeholder="Publication year"
-        type="number"
-        formControlName="publicationYear"
-        required
-      />
-      <mat-error
-        *ngIf="bookForm.controls['publicationYear'].hasError('required')"
-      >
-        Publication year is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="accent" type="submit">
-      Save
-    </button>
-    <button mat-raised-button color="accent" type="button" (click)="goBack()">
-      Cancel
-    </button>
-  </form>
+      <mat-form-field class="full-width">
+        <mat-label>Publication year</mat-label>
+        <input
+          matInput
+          placeholder="Publication year"
+          type="number"
+          formControlName="publicationYear"
+          required
+        />
+        <mat-error
+          *ngIf="bookForm.controls['publicationYear'].hasError('required')"
+        >
+          Publication year is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="butto-container">
+        <button mat-raised-button color="accent" type="submit">
+          Save
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          type="button"
+          (click)="goBack()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
