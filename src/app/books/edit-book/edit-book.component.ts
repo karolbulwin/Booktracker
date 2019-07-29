@@ -4,6 +4,7 @@ import { Book } from 'src/app/models/book';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { BookTrackerError } from 'src/app/models/bookTrackerError';
 
 @Component({
   selector: 'app-edit-book',
@@ -20,6 +21,7 @@ export class EditBookComponent implements OnInit {
   //   new FormControl('', [Validators.required, Validators.email]);
   bookForm;
   selectedBook: Book;
+  error: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +53,9 @@ export class EditBookComponent implements OnInit {
           ]
         });
       },
-      (err: any) => console.log('edit-book: ' + err) // in dataService
+      (error: BookTrackerError) => {
+        this.error = error.friendlyMessage as string;
+      }
     );
   }
 

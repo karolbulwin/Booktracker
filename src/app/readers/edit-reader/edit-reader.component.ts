@@ -4,6 +4,7 @@ import { Reader } from 'src/app/models/reader';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Validators, FormBuilder } from '@angular/forms';
+import { BookTrackerError } from 'src/app/models/bookTrackerError';
 
 @Component({
   selector: 'app-edit-reader',
@@ -13,6 +14,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 export class EditReaderComponent implements OnInit {
   readerForm;
   selectedReader: Reader;
+  error: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +49,9 @@ export class EditReaderComponent implements OnInit {
           ]
         });
       },
-      (err: any) => console.log('edit-reader: ' + err) // in dataService
+      (error: BookTrackerError) => {
+        this.error = error.friendlyMessage as string;
+      }
     );
   }
 
