@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { Book } from 'src/app/models/book';
 import { Location } from '@angular/common';
-import { DataService } from 'src/app/core/data.service';
 import { Router } from '@angular/router';
+import { Validators, FormBuilder } from '@angular/forms';
+
+import { Book } from 'src/app/models/book';
+import { DataService } from 'src/app/core/data.service';
 import { BookTrackerError } from 'src/app/models/bookTrackerError';
 
 @Component({
