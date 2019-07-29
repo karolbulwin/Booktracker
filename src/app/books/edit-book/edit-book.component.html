@@ -39,12 +39,19 @@
           Publication year is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="accent" type="submit">
-        Save
-      </button>
-      <button mat-raised-button color="accent" type="button" (click)="goBack()">
-        Cancel
-      </button>
+      <div class="butto-container">
+        <button mat-raised-button color="accent" type="submit">
+          Save
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          type="button"
+          (click)="goBack()"
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   </div>
 </div>
