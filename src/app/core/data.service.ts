@@ -34,16 +34,15 @@ export class DataService {
 
   getBooks(): Observable<Book[] | BookTrackerError> {
     return this.http.get<Book[]>(this.booksUrl, httpOptions).pipe(
-      tap(_ => this.log('fetched books')),
-      catchError(this.handleError<Book[]>('getBooks', []))
-      // catchError(err => this.handleHttpError(err))
+      retry(3),
+      catchError(this.handleHttpError)
     );
   }
 
-  getBook(id: number): Observable<Book> {
+  getBook(id: number): Observable<Book | BookTrackerError> {
     return this.http.get<Book>(`${this.booksUrl}/${id}`, httpOptions).pipe(
-      tap(_ => this.log(`fetched book id=${id}`)),
-      catchError(this.handleError<Book>(`getBook id=${id}`))
+      retry(3),
+      catchError(this.handleHttpError)
     );
   }
 
@@ -71,30 +70,26 @@ export class DataService {
 
   getReaders(): Observable<Reader[] | BookTrackerError> {
     return this.http.get<Reader[]>(this.readersUrl).pipe(
-      tap(_ => this.log('fetched readers')),
-      // catchError(this.handleError<Reader[]>('getReaders', []))
       retry(3),
-      catchError(err => this.handleHttpError(err))
+      catchError(this.handleHttpError)
     );
   }
 
-  getReader(id: number): Observable<Reader> {
-    const url = `${this.readersUrl}/${id}`;
-
-    console.log(url);
-    return this.http.get<Reader>(url, httpOptions).pipe(
-      tap(_ => this.log(`fetched reader id=${id}`)),
-      catchError(this.handleError<Reader>(`getReader id=${id}`))
+  getReader(id: number): Observable<Reader | BookTrackerError> {
+    return this.http.get<Reader>(`${this.readersUrl}/${id}`, httpOptions).pipe(
+      retry(3),
+      catchError(this.handleHttpError)
     );
   }
 
   addReader(newReader: Reader): Observable<Reader> {
-    return this.http.post<Reader>(this.readersUrl, newReader, httpOptions).pipe(
-      tap(_ => this.log(`reader added=${newReader.name}`)),
-      catchError(
-        this.handleError<Reader>(`addReader -failed - ${newReader.name}`)
-      )
-    );
+    return this.http
+      .post<Reader>(this.readersUrl, newReader, httpOptions)
+      .pipe(
+        catchError(
+          this.handleError<Reader>(`addReader -failed - ${newReader.name}`)
+        )
+      );
   }
 
   updateReader(updatedReader: Reader): Observable<void> {
@@ -105,7 +100,6 @@ export class DataService {
         httpOptions
       )
       .pipe(
-        tap(_ => this.log(`reader added=${updatedReader.name}`)),
         catchError(
           this.handleError<void>(`updateReader -failed - ${updatedReader.name}`)
         )
