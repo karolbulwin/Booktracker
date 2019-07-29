@@ -26,14 +26,6 @@ export class EditReaderComponent implements OnInit {
     private location: Location
   ) {}
 
-  // getErrorMessage() {
-  //   return this.year.hasError('required')
-  //     ? 'You must enter a value'
-  //     : this.year.hasError('email')
-  //     ? 'Not a valid email'
-  //     : '';
-  // }
-
   getReader(): void {
     const readerID = +this.route.snapshot.params.id;
 
@@ -59,15 +51,11 @@ export class EditReaderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.warn('Saved');
-
     if (this.readerForm.status === 'VALID') {
       const updatedReader: Reader = this.readerForm.value as Reader;
       const newReader = { ...this.selectedReader, ...updatedReader };
 
       this.dataService.updateReader(newReader).subscribe(
-        (data: void) =>
-          console.log(`${this.selectedReader.name} updated successfully`),
         (error: BookTrackerError) => {
           // this.error = error.friendlyMessage as string;
           this.error.send = 'An error occurred. Please try again later.';

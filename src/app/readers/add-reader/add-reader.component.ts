@@ -32,7 +32,6 @@ export class AddReaderComponent implements OnInit {
       const newReader: Reader = this.readerForm.value as Reader;
 
       this.dataService.addReader(newReader).subscribe(
-        (reader: Reader) => console.log(reader),
         (error: BookTrackerError) => {
           // this.error = error.friendlyMessage as string;
           this.error = 'An error occurred. Please try again later.';
