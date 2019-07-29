@@ -71,5 +71,9 @@ export class InMemoryDataService implements InMemoryDbService {
     return { books, readers };
   }
 
+  genId(books: Book[]): number {
+    return books.length > 0 ? Math.max(...books.map(book => book.id)) + 1 : 1;
+  }
+
   constructor() {}
 }
