@@ -10,12 +10,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DashboardComponent } from './dashboard.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatListModule } from '@angular/material/list';
+import { DataService } from '../core/data.service';
+import {
+  HttpTestingController,
+  HttpClientTestingModule
+} from '@angular/common/http/testing';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async(() => {
+    let dataService: DataService;
+    let httpTestingController: HttpTestingController;
+
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
       imports: [
@@ -27,9 +35,13 @@ describe('DashboardComponent', () => {
         MatIconModule,
         MatMenuModule,
         MatListModule,
-        RouterTestingModule
-      ]
+        RouterTestingModule,
+        HttpClientTestingModule
+      ],
+      providers: [DataService]
     }).compileComponents();
+    dataService = TestBed.get(DataService);
+    httpTestingController = TestBed.get(HttpTestingController);
   }));
 
   beforeEach(() => {
