@@ -34,198 +34,220 @@ describe('DataService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should GET all books', () => {
-    dataService.getBooks().subscribe((data: Book[]) => {
-      expect(data.length).toBe(6);
+  describe('getBooks method', () => {
+    it('should GET all books', () => {
+      dataService.getBooks().subscribe((data: Book[]) => {
+        expect(data.length).toBe(6);
+      });
+
+      const booksRequest: TestRequest = httpTestingController.expectOne(
+        'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
+        // '/api/books'
+      );
+      expect(booksRequest.request.method).toEqual('GET');
+
+      booksRequest.flush(books);
     });
-
-    const booksRequest: TestRequest = httpTestingController.expectOne(
-      'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
-      // '/api/books'
-    );
-    expect(booksRequest.request.method).toEqual('GET');
-
-    booksRequest.flush(books);
   });
 
-  it('should GET second book', () => {
-    const bookId = books[2].id;
-    dataService.getBook(bookId).subscribe((data: Book) => {
-      expect(data).toEqual(books[bookId]);
+  describe('getBook method', () => {
+    it('should GET second book', () => {
+      const bookId = books[2].id;
+      dataService.getBook(bookId).subscribe((data: Book) => {
+        expect(data).toEqual(books[bookId]);
+      });
+
+      const booksRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${bookId}`
+        // '/api/books'
+      );
+      expect(booksRequest.request.method).toEqual('GET');
+
+      booksRequest.flush(books[bookId]);
     });
-
-    const booksRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${bookId}`
-      // '/api/books'
-    );
-    expect(booksRequest.request.method).toEqual('GET');
-
-    booksRequest.flush(books[bookId]);
   });
 
-  it('should GET all readers', () => {
-    dataService.getReaders().subscribe((data: Reader[]) => {
-      expect(data.length).toBe(3);
+  describe('getReaders method', () => {
+    it('should GET all readers', () => {
+      dataService.getReaders().subscribe((data: Reader[]) => {
+        expect(data.length).toBe(3);
+      });
+
+      const readersRequest: TestRequest = httpTestingController.expectOne(
+        'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers'
+        // '/api/readers'
+      );
+      expect(readersRequest.request.method).toEqual('GET');
+
+      readersRequest.flush(readers);
     });
-
-    const readersRequest: TestRequest = httpTestingController.expectOne(
-      'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers'
-      // '/api/readers'
-    );
-    expect(readersRequest.request.method).toEqual('GET');
-
-    readersRequest.flush(readers);
   });
 
-  it('should GET first reader', () => {
-    const readerId = readers[1].id;
-    dataService.getReader(readerId).subscribe((data: Reader) => {
-      expect(data).toEqual(readers[readerId]);
+  describe('getReader method', () => {
+    it('should GET first reader', () => {
+      const readerId = readers[1].id;
+      dataService.getReader(readerId).subscribe((data: Reader) => {
+        expect(data).toEqual(readers[readerId]);
+      });
+
+      const readersRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${readerId}`
+        // '/api/readers'
+      );
+      expect(readersRequest.request.method).toEqual('GET');
+
+      readersRequest.flush(readers[readerId]);
     });
-
-    const readersRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${readerId}`
-      // '/api/readers'
-    );
-    expect(readersRequest.request.method).toEqual('GET');
-
-    readersRequest.flush(readers[readerId]);
   });
 
-  it('should add new book', () => {
-    const newBook: Book = {
-      id: null,
-      title: 'ME',
-      author: 'I',
-      publicationYear: 2019
-    };
-    dataService.addBook(newBook).subscribe((data: Book) => {
-      expect(data).toEqual(newBook);
+  describe('addBook method', () => {
+    it('should add new book', () => {
+      const newBook: Book = {
+        id: null,
+        title: 'ME',
+        author: 'I',
+        publicationYear: 2019
+      };
+      dataService.addBook(newBook).subscribe((data: Book) => {
+        expect(data).toEqual(newBook);
+      });
+
+      const booksRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books`
+        // '/api/books'
+      );
+      expect(booksRequest.request.method).toEqual('POST');
+
+      booksRequest.flush(newBook);
     });
-
-    const booksRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books`
-      // '/api/books'
-    );
-    expect(booksRequest.request.method).toEqual('POST');
-
-    booksRequest.flush(newBook);
   });
 
-  it('should add new reader', () => {
-    const newReader: Reader = {
-      id: null,
-      name: 'Karol',
-      weeklyReadingGoal: 100,
-      totalMinutesRead: 100
-    };
+  describe('addReader method', () => {
+    it('should add new reader', () => {
+      const newReader: Reader = {
+        id: null,
+        name: 'Karol',
+        weeklyReadingGoal: 100,
+        totalMinutesRead: 100
+      };
 
-    dataService.addReader(newReader).subscribe((data: Reader) => {
-      expect(data).toEqual(newReader);
+      dataService.addReader(newReader).subscribe((data: Reader) => {
+        expect(data).toEqual(newReader);
+      });
+
+      const readersRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers`
+        // '/api/readers'
+      );
+      expect(readersRequest.request.method).toEqual('POST');
+
+      readersRequest.flush(newReader);
     });
-
-    const readersRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers`
-      // '/api/readers'
-    );
-    expect(readersRequest.request.method).toEqual('POST');
-
-    readersRequest.flush(newReader);
   });
 
-  it('should delete book', () => {
-    const bookToDelete = books[1];
-    dataService.deleteBook(bookToDelete.id).subscribe(data => {
-      expect(data).toEqual(null);
+  describe('deleteBook method', () => {
+    it('should delete book', () => {
+      const bookToDelete = books[1];
+      dataService.deleteBook(bookToDelete.id).subscribe(data => {
+        expect(data).toEqual(null);
+      });
+
+      const booksRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${
+          bookToDelete.id
+        }`
+        // '/api/books'
+      );
+      expect(booksRequest.request.method).toEqual('DELETE');
+
+      booksRequest.flush(null);
     });
-
-    const booksRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${
-        bookToDelete.id
-      }`
-      // '/api/books'
-    );
-    expect(booksRequest.request.method).toEqual('DELETE');
-
-    booksRequest.flush(null);
   });
 
-  it('should delete reader', () => {
-    const readerToDelete = readers[1];
-    dataService.deleteReader(readerToDelete.id).subscribe(data => {
-      expect(null).toEqual(null);
+  describe('deleteReader method', () => {
+    it('should delete reader', () => {
+      const readerToDelete = readers[1];
+      dataService.deleteReader(readerToDelete.id).subscribe(data => {
+        expect(null).toEqual(null);
+      });
+
+      const readersRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${
+          readerToDelete.id
+        }`
+        // '/api/readers'
+      );
+      expect(readersRequest.request.method).toEqual('DELETE');
+
+      readersRequest.flush(null);
     });
-
-    const readersRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${
-        readerToDelete.id
-      }`
-      // '/api/readers'
-    );
-    expect(readersRequest.request.method).toEqual('DELETE');
-
-    readersRequest.flush(null);
   });
 
-  it('should update book', () => {
-    const updatedBook = { ...books[1] };
-    updatedBook.title = 'ME';
-    console.log('updatedBook::::', updatedBook);
+  describe('updateBook method', () => {
+    it('should update book', () => {
+      const updatedBook = { ...books[1] };
+      updatedBook.title = 'ME';
+      console.log('updatedBook::::', updatedBook);
 
-    dataService.updateBook(updatedBook).subscribe(data => {
-      expect(data).toEqual(null);
+      dataService.updateBook(updatedBook).subscribe(data => {
+        expect(data).toEqual(null);
+      });
+
+      const readersRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${
+          updatedBook.id
+        }`
+        // '/api/books'
+      );
+      expect(readersRequest.request.method).toEqual('PUT');
+
+      readersRequest.flush(null);
     });
-
-    const readersRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${
-        updatedBook.id
-      }`
-      // '/api/books'
-    );
-    expect(readersRequest.request.method).toEqual('PUT');
-
-    readersRequest.flush(null);
   });
 
-  it('should update reader', () => {
-    const updatedReader = { ...readers[1] };
-    updatedReader.name = 'Karol';
+  describe('updateReader method', () => {
+    it('should update reader', () => {
+      const updatedReader = { ...readers[1] };
+      updatedReader.name = 'Karol';
 
-    dataService.updateReader(updatedReader).subscribe(data => {
-      expect(data).toEqual(null);
+      dataService.updateReader(updatedReader).subscribe(data => {
+        expect(data).toEqual(null);
+      });
+
+      const readersRequest: TestRequest = httpTestingController.expectOne(
+        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${
+          updatedReader.id
+        }`
+        // '/api/readers'
+      );
+      expect(readersRequest.request.method).toEqual('PUT');
+
+      readersRequest.flush(null);
     });
-
-    const readersRequest: TestRequest = httpTestingController.expectOne(
-      `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${
-        updatedReader.id
-      }`
-      // '/api/readers'
-    );
-    expect(readersRequest.request.method).toEqual('PUT');
-
-    readersRequest.flush(null);
   });
 
-  // it('should return a BookTrackerError', () => {
-  //   dataService.getBooks().subscribe(
-  //     (data: Book[]) => fail('this should have been an error'),
-  //     (error: BookTrackerError) => {
-  //       expect(error.errorNumber).toEqual(100);
-  //       expect(error.friendlyMessage).toEqual(
-  //         'An error occurred retrieving data.'
-  //       );
-  //     }
-  //   );
+  // describe('handleHttpError metod', () => {
+  //   it('should return a BookTrackerError', () => {
+  //     dataService.getBooks().subscribe(
+  //       (data: Book[]) => fail('this should have been an error'),
+  //       (error: BookTrackerError) => {
+  //         expect(error.errorNumber).toEqual(100);
+  //         expect(error.friendlyMessage).toEqual(
+  //           'An error occurred retrieving data.'
+  //         );
+  //       }
+  //     );
 
-  //   const booksRequest: TestRequest = httpTestingController.expectOne(
-  //     'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
-  //     // '/api/books'
-  //   );
-  //   // expect(booksRequest.request.method).toEqual('GET');
+  //     const booksRequest: TestRequest = httpTestingController.expectOne(
+  //       'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
+  //       // '/api/books'
+  //     );
+  //     // expect(booksRequest.request.method).toEqual('GET');
 
-  //   booksRequest.flush('error', {
-  //     status: 500,
-  //     statusText: 'Server Error'
+  //     booksRequest.flush('error', {
+  //       status: 500,
+  //       statusText: 'Server Error'
+  //     });
   //   });
   // });
 });
