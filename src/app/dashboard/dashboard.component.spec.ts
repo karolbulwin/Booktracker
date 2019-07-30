@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { DashboardComponent } from './dashboard.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatListModule } from '@angular/material/list';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -24,6 +26,8 @@ describe('DashboardComponent', () => {
         MatGridListModule,
         MatIconModule,
         MatMenuModule,
+        MatListModule,
+        RouterTestingModule
       ]
     }).compileComponents();
   }));
