@@ -15,6 +15,12 @@ describe('DataService', () => {
   let dataService: DataService;
   let httpTestingController: HttpTestingController;
 
+  // const booksUrl = 'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
+  // const readersUrl = 'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers';
+
+  const booksUrl = 'api/books';
+  const readersUrl = 'api/readers';
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -41,8 +47,7 @@ describe('DataService', () => {
       });
 
       const booksRequest: TestRequest = httpTestingController.expectOne(
-        'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
-        // '/api/books'
+        `${booksUrl}`
       );
       expect(booksRequest.request.method).toEqual('GET');
 
@@ -58,8 +63,7 @@ describe('DataService', () => {
       });
 
       const booksRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${bookId}`
-        // '/api/books'
+        `${booksUrl}/${bookId}`
       );
       expect(booksRequest.request.method).toEqual('GET');
 
@@ -74,8 +78,7 @@ describe('DataService', () => {
       });
 
       const readersRequest: TestRequest = httpTestingController.expectOne(
-        'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers'
-        // '/api/readers'
+        `${readersUrl}`
       );
       expect(readersRequest.request.method).toEqual('GET');
 
@@ -91,8 +94,7 @@ describe('DataService', () => {
       });
 
       const readersRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${readerId}`
-        // '/api/readers'
+        `${readersUrl}/${readerId}`
       );
       expect(readersRequest.request.method).toEqual('GET');
 
@@ -106,15 +108,15 @@ describe('DataService', () => {
         id: null,
         title: 'ME',
         author: 'I',
-        publicationYear: 2019
+        publicationYear: 2019,
+        favorite: false
       };
       dataService.addBook(newBook).subscribe((data: Book) => {
         expect(data).toEqual(newBook);
       });
 
       const booksRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books`
-        // '/api/books'
+        `${booksUrl}`
       );
       expect(booksRequest.request.method).toEqual('POST');
 
@@ -136,8 +138,7 @@ describe('DataService', () => {
       });
 
       const readersRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers`
-        // '/api/readers'
+        `${readersUrl}`
       );
       expect(readersRequest.request.method).toEqual('POST');
 
@@ -153,10 +154,7 @@ describe('DataService', () => {
       });
 
       const booksRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${
-          bookToDelete.id
-        }`
-        // '/api/books'
+        `${booksUrl}/${bookToDelete.id}`
       );
       expect(booksRequest.request.method).toEqual('DELETE');
 
@@ -172,10 +170,7 @@ describe('DataService', () => {
       });
 
       const readersRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${
-          readerToDelete.id
-        }`
-        // '/api/readers'
+        `${readersUrl}/${readerToDelete.id}`
       );
       expect(readersRequest.request.method).toEqual('DELETE');
 
@@ -194,10 +189,7 @@ describe('DataService', () => {
       });
 
       const readersRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/books/${
-          updatedBook.id
-        }`
-        // '/api/books'
+        `${booksUrl}/${updatedBook.id}`
       );
       expect(readersRequest.request.method).toEqual('PUT');
 
@@ -215,10 +207,7 @@ describe('DataService', () => {
       });
 
       const readersRequest: TestRequest = httpTestingController.expectOne(
-        `https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers/${
-          updatedReader.id
-        }`
-        // '/api/readers'
+        `${readersUrl}/${updatedReader.id}`
       );
       expect(readersRequest.request.method).toEqual('PUT');
 
@@ -240,7 +229,7 @@ describe('DataService', () => {
 
   //     const booksRequest: TestRequest = httpTestingController.expectOne(
   //       'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books'
-  //       // '/api/books'
+  //       // `${booksUrl}`
   //     );
   //     // expect(booksRequest.request.method).toEqual('GET');
 
