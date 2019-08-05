@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -19,7 +20,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    LayoutModule
+    LayoutModule,
+    MatListModule
   ]
 })
 export class DashboardModule {}
