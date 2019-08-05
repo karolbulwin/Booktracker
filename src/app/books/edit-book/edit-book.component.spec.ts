@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('EditBookComponent', () => {
   let component: EditBookComponent;
@@ -20,6 +21,7 @@ describe('EditBookComponent', () => {
         MatInputModule,
         ReactiveFormsModule,
         MatButtonModule,
+        MatIconModule,
         RouterTestingModule,
         HttpClientTestingModule
       ]
