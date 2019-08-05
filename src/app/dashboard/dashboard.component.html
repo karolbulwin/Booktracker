@@ -10,30 +10,88 @@
         <mat-card-header>
           <mat-card-title>
             {{ card.title }}
-            <button
-              mat-icon-button
-              class="more-button"
-              [matMenuTriggerFor]="menu"
-              aria-label="Toggle menu"
-            >
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>
-            <ul *ngIf="card.title === 'Books'">
-              <li *ngFor="let book of card.data">{{ book.title }}</li>
-            </ul>
-            <ul *ngIf="card.title === 'Readers'">
-              <li *ngFor="let reader of card.data">
-                {{ reader.name }}
-              </li>
-            </ul>
+            <div *ngIf="card.title === 'Books'">
+              <div *ngIf="errors.books" class="error">
+                <p>{{ errors.books }}</p>
+              </div>
+              <mat-list>
+                <mat-list-item *ngFor="let book of books">
+                  {{ book.title }}
+                  <button
+                    routerLink="/editBook/{{ book.id }}"
+                    mat-icon-button
+                    color="accent"
+                    aria-label="Edit book"
+                    title="Edit"
+                  >
+                    <i class="material-icons">
+                      edit
+                    </i>
+                  </button>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    aria-label="Delete book"
+                    title="Delete"
+                    (click)="deleteBook(book.id)"
+                  >
+                    <i class="material-icons">
+                      delete
+                    </i>
+                  </button>
+                </mat-list-item>
+              </mat-list>
+            </div>
+
+            <div *ngIf="card.title === 'Readers'">
+              <div *ngIf="errors.readers" class="error">
+                <p>{{ errors.readers }}</p>
+              </div>
+              <mat-list>
+                <mat-list-item *ngFor="let reader of readers">
+                  {{ reader.name }}
+                  <button
+                    routerLink="/editReader/{{ reader.id }}"
+                    mat-icon-button
+                    color="accent"
+                    aria-label="Edit book"
+                    title="Edit"
+                  >
+                    <i class="material-icons">
+                      edit
+                    </i>
+                  </button>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    aria-label="Delete reader"
+                    title="Delete"
+                    (click)="deleteReader(reader.id)"
+                  >
+                    <i class="material-icons">
+                      delete
+                    </i>
+                  </button>
+                </mat-list-item>
+              </mat-list>
+            </div>
+
+            <div *ngIf="card.title === 'The most popular books'">
+              <mat-list>
+                <mat-list-item
+                  *ngFor="let book of books"
+                  [ngStyle]="{ display: book.favorite ? 'block' : 'none' }"
+                >
+                  <ng-container *ngIf="book.favorite">{{
+                    book.title
+                  }}</ng-container>
+                </mat-list-item>
+              </mat-list>
+            </div>
           </div>
         </mat-card-content>
       </mat-card>
