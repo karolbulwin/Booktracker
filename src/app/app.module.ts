@@ -17,6 +17,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { BooksModule } from './books/books.module';
+import { ReadersModule } from './readers/readers.module';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
@@ -26,6 +28,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     CoreModule,
     HttpClientModule,
     DashboardModule,
+    BooksModule,
+    ReadersModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
     }),
