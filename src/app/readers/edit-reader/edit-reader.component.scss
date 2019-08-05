@@ -1,11 +1,38 @@
-.example-container {
-  display: flex;
-  flex-direction: column;
-  .full-width {
-    width: 100%;
+.root {
+  margin: 1.5em;
+  width: 90%;
+  margin: auto;
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    .full-width {
+      width: 100%;
+    }
+    .butto-container {
+      padding-block-start: 0.7em;
+      button {
+        &:last-of-type {
+          margin-left: 1em;
+        }
+      }
+    }
   }
-}
-
-.example-container > * {
-  width: 100%;
+  .error {
+    color: red;
+  }
+  @media screen and (min-width: 500px) {
+    width: 80%;
+  }
+  @media screen and (min-width: 600px) {
+    width: 70%;
+  }
+  @media screen and (min-width: 802px) {
+    width: 60%;
+  }
+  @media screen and (min-width: 960px) {
+    width: 50%;
+  }
+  @media screen and (min-width: 1160px) {
+    width: 40%;
+  }
 }

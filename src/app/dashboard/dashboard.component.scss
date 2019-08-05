@@ -8,14 +8,18 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
+  overflow: auto;
+
+  .dashboard-card-content {
+    text-align: center;
+    .error {
+      color: red;
+    }
+  }
 }
 
 .more-button {
   position: absolute;
   top: 5px;
   right: 10px;
-}
-
-.dashboard-card-content {
-  text-align: center;
 }
