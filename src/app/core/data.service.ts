@@ -12,13 +12,13 @@ import { BookTrackerError } from '../models/bookTrackerError';
   providedIn: 'root'
 })
 export class DataService {
-  private booksUrl =
-    'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books';
-  private readersUrl =
-    'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers';
+  // private booksUrl =
+  //   'https://my-json-server.typicode.com/karolbulwin/booktracker_db/books';
+  // private readersUrl =
+  //   'https://my-json-server.typicode.com/karolbulwin/booktracker_db/readers';
 
-  // private booksUrl = 'api/books';
-  // private readersUrl = 'api/readers';
+  private booksUrl = 'api/books';
+  private readersUrl = 'api/readers';
 
   constructor(private http: HttpClient) {}
 
