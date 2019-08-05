@@ -54,6 +54,16 @@
         >
           Cancel
         </button>
+        <button
+          type="button"
+          mat-icon-button
+          [ngClass]="{ favorite: isFavorite }"
+          aria-label="Set as a favorite book."
+          title="Set as a favorite"
+          (click)="onClickFavorite()"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
       </div>
     </form>
   </div>

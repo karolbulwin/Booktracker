@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
         cols: 2,
         rows: 1
       },
-      { title: 'Card 3', cols: 2, rows: 1 }
+      { title: 'The most popular books', cols: 2, rows: 1 }
     ];
   }
 
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
     return [
       { title: 'Books', cols: 2, rows: 1 },
       { title: 'Readers', cols: 1, rows: 1 },
-      { title: 'Card 3', cols: 1, rows: 1 }
+      { title: 'The most popular books', cols: 1, rows: 1 }
     ];
   }
 

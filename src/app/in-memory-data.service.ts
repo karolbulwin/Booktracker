@@ -13,37 +13,43 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         title: 'Goodnight Moon',
         author: 'Margaret Wise Brown',
-        publicationYear: 1953
+        publicationYear: 1953,
+        favorite: false
       },
       {
         id: 2,
         title: 'Winnie-the-Pooh',
         author: 'A. A. Milne',
-        publicationYear: 1926
+        publicationYear: 1926,
+        favorite: false
       },
       {
         id: 3,
         title: 'Where the Wild Things Are',
         author: 'Maurice Sendak',
-        publicationYear: 1963
+        publicationYear: 1963,
+        favorite: false
       },
       {
         id: 4,
         title: 'The Hobbit',
         author: 'J. R. R. Tolkien',
-        publicationYear: 1937
+        publicationYear: 1937,
+        favorite: false
       },
       {
         id: 5,
         title: 'Curious George',
         author: 'H. A. Rey',
-        publicationYear: 1941
+        publicationYear: 1941,
+        favorite: false
       },
       {
         id: 6,
         title: "Alice's Adventures in Wonderland",
         author: 'Lewis Carroll',
-        publicationYear: 1865
+        publicationYear: 1865,
+        favorite: false
       }
     ];
 

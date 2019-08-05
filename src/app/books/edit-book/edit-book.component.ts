@@ -19,6 +19,7 @@ export class EditBookComponent implements OnInit {
     send: '',
     get: ''
   };
+  isFavorite: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,7 @@ export class EditBookComponent implements OnInit {
     this.dataService.getBook(bookID).subscribe(
       (book: Book) => {
         this.selectedBook = book;
+        this.isFavorite = book.favorite;
         this.bookForm = this.fb.group({
           title: [this.selectedBook.title, Validators.required],
           author: [this.selectedBook.author, Validators.required],
@@ -51,6 +53,7 @@ export class EditBookComponent implements OnInit {
   onSubmit(): void {
     if (this.bookForm.status === 'VALID') {
       const updatedBook: Book = this.bookForm.value as Book;
+      updatedBook.favorite = this.isFavorite;
       const newBook = { ...this.selectedBook, ...updatedBook };
 
       this.dataService.updateBook(newBook).subscribe(
@@ -70,6 +73,10 @@ export class EditBookComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  onClickFavorite(): void {
+    this.isFavorite = !this.isFavorite;
   }
 
   ngOnInit(): void {

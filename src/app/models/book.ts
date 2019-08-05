@@ -3,4 +3,5 @@ export class Book {
   title: string;
   author: string;
   publicationYear: number;
+  favorite: boolean;
 }
