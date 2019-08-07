@@ -13,12 +13,7 @@
 
       <mat-form-field class="full-width">
         <mat-label>Author</mat-label>
-        <input
-          matInput
-          placeholder="Author"
-          formControlName="author"
-          required
-        />
+        <input matInput placeholder="Author" formControlName="author" />
         <mat-error *ngIf="bookForm.controls['author'].hasError('required')">
           Author name is <strong>required</strong>
         </mat-error>
@@ -31,7 +26,6 @@
           placeholder="Publication year"
           type="number"
           formControlName="publicationYear"
-          required
         />
         <mat-error
           *ngIf="bookForm.controls['publicationYear'].hasError('required')"

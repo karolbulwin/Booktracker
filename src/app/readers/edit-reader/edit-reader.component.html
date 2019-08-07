@@ -21,7 +21,6 @@
           placeholder="weeklyReadingGoal"
           type="number"
           formControlName="weeklyReadingGoal"
-          required
         />
         <mat-error
           *ngIf="readerForm.controls['weeklyReadingGoal'].hasError('required')"
@@ -37,7 +36,6 @@
           placeholder="totalMinutesRead"
           type="number"
           formControlName="totalMinutesRead"
-          required
         />
         <mat-error
           *ngIf="readerForm.controls['totalMinutesRead'].hasError('required')"
