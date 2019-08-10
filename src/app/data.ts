@@ -14,7 +14,8 @@ export const readers: Reader[] = [
     weeklyReadingGoal: 210,
     totalMinutesRead: 3000
   },
-  { id: 3, name: 'Lanier', weeklyReadingGoal: 140, totalMinutesRead: 600 }
+  { id: 3, name: 'Lanier', weeklyReadingGoal: 140, totalMinutesRead: 600 },
+  { id: 4, name: 'Somebody', weeklyReadingGoal: 1140, totalMinutesRead: 6100 }
 ];
 
 export const books: Book[] = [
